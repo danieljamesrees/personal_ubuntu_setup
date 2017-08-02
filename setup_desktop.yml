@@ -1,0 +1,41 @@
+---
+
+# Set a BIOS Admin password.
+# Disable Secure Boot in the BIOS.
+# Enable Virtualization in the BIOS.
+
+# Where vendor approved, install directly from the repos, but keep local copies
+# in ~/Downloads/Setup. Could use approx as a proxy instead.
+
+# Could setup all standard packages in one playbook with a loop instead.
+
+# Run as follows:
+#ansible-playbook setup_desktop.yml --ask-sudo-pass [--extra-vars='{"attended":True}']
+
+- hosts: local
+  vars:
+    attended: False
+  tasks:
+  - name: Set the user's HOME directory. # Needed due to https://github.com/ansible/ansible/issues/14352.
+    set_fact:
+      home_path: '/home/dan'
+  - include: setup_ansible.yml
+  - include: setup_dropbox.yml
+  - include: setup_git.yml
+  - include: setup_java.yml
+  - include: setup_eclipse.yml
+  - include: setup_virtualbox.yml
+  - include: setup_teamviewer.yml
+  - name: Install atom.
+    command: 'snap install atom --classic'
+    become: 'yes'
+  - name: Create a file to run personal tasks on startup.
+    template:
+      dest: '~/.config/upstart'
+      src: 'upstart'
+  # Assumes the install image is pre-downloaded to ~/Downloads/Setup.
+  - name: Install Vagrant.
+    apt:
+      deb: '{{ home_path }}/Downloads/Setup/vagrant_1.9.7_x86_64.deb'
+    become: 'yes'
+  #-name: Install Google Drive.

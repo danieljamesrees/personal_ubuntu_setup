@@ -1,0 +1,19 @@
+---
+
+- name: Install the repo for VirtualBox 5.1.
+  apt_repository:
+    repo: 'deb http://download.virtualbox.org/virtualbox/debian xenial contrib'
+  become: 'yes'
+- name: Install the key for the VirtualBox repo.
+  apt_key:
+    url: 'https://www.virtualbox.org/download/oracle_vbox_2016.asc'
+  become: 'yes'
+- name: Update the APT repos for VirtualBox 5.1.
+  apt:
+    update_cache: 'yes'
+  become: 'yes'
+  when: not ansible_check_mode
+- name: Install VirtualBox 5.1.
+  package:
+    name: 'virtualbox-5.1'
+  become: 'yes'

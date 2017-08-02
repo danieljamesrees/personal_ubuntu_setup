@@ -1,0 +1,15 @@
+---
+
+- name: Install TeamViewer.
+  apt:
+    deb: '{{ home_path }}/Downloads/Setup/teamviewer_12.0.76279_i386.deb'
+  become: 'yes'
+- name: Prepare TeamViewer service script.
+  copy:
+    dest: '/etc/init.d/teamviewerd.sysv'
+    src: '/opt/teamviewer/tv_bin/script/teamviewerd.sysv'
+    mode: 'u=rwx,g=rx,o=rx'
+  become: 'yes'
+- name: Set TeamService service script to run at startup.
+  command: 'update-rc.d teamviewerd.sysv defaults'
+  become: 'yes'

@@ -1,0 +1,17 @@
+---
+
+- name: Install Dropbox.
+  package:
+    name: 'dropbox=2015.10.28'
+- name: Copy SSH private keys from Dropbox.
+  copy:
+    dest: '~/.ssh'
+    mode: 'u=rw'
+    src: '~/Dropbox'
+  with_fileglob: '*.rsa'
+- name: Copy SSH public keys from Dropbox.
+  copy:
+    dest: '/home/dan/.ssh'
+    mode: 'u=rw,g=r,o=r'
+    src: '/home/dan/Dropbox'
+  with_fileglob: '*.rsa.pub'

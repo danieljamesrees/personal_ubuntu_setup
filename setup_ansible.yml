@@ -1,0 +1,19 @@
+---
+
+- name: Install an APT repo for installing Ansible.
+  package:
+    name: 'software-properties-common=0.96.20.7'
+  become: 'yes'
+- name: Install the APT repo for Ansible.
+  apt_repository:
+    repo: 'ppa:ansible/ansible'
+  become: 'yes'
+- name: Update the APT repos for Ansible.
+  apt:
+    update_cache: 'yes'
+  become: 'yes'
+  when: not ansible_check_mode
+- name: Install Ansible.
+  package:
+    name: 'ansible'
+  become: 'yes'

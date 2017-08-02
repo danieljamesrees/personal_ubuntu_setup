@@ -1,0 +1,15 @@
+---
+
+- name: Install git.
+  package:
+    name: 'git=1:2.7.4-0ubuntu1.1'
+  become: 'yes'
+- name: Configure git personal_ubuntu_setup repo.
+  git_config:
+    name: '{{ item.name }}'
+    repo: '{{ item.repo }}'
+    scope: 'local'
+    value: '{{ item.value }}'
+  with_items:
+    - { name: 'user.email', repo: '{{ home_path }}/Projects/personal_ubuntu_setup', value: 'd_j_rees@hotmail.com' }
+    - { name: 'user.name', repo: '{{ home_path }}/Projects/personal_ubuntu_setup', value: 'danieljamesrees' }
