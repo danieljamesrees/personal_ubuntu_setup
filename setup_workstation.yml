@@ -3,6 +3,7 @@
 # Set a BIOS Admin password.
 # Disable Secure Boot in the BIOS.
 # Enable Virtualization in the BIOS.
+# Hibernate doesn't work - even after installing supporting packages, and extending the swap partition.
 
 # Where vendor approved, install directly from the repos, but keep local copies
 # in ~/Downloads/Setup. Could use approx as a proxy instead.
@@ -24,8 +25,16 @@
   - include: setup_git.yml
   - include: setup_java.yml
   - include: setup_eclipse.yml
+  - include: setup_docker.yml
   - include: setup_virtualbox.yml
   - include: setup_teamviewer.yml
+  - include: setup_utilities.yml
+  - name: Disable clobbering.
+    lineinfile:
+      line: 'set -o noclobber'
+      path: '{{ home_path }}/.bashrc'
+      regexp: '^set -o noclobber'
+      state: 'present'
   - name: Install atom.
     command: 'snap install atom --classic'
     become: 'yes'

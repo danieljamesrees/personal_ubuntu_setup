@@ -1,9 +1,9 @@
 ---
 
-- name: Install an APT repo for installing Ansible.
-  package:
-    name: 'software-properties-common=0.96.20.7'
-  become: 'yes'
+# - name: Install an APT package for installing Ansible.
+#   package:
+#     name: 'software-properties-common=0.96.20.7'
+#   become: 'yes'
 - name: Install the APT repo for Ansible.
   apt_repository:
     repo: 'ppa:ansible/ansible'

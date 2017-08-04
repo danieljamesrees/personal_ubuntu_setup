@@ -1,0 +1,8 @@
+---
+
+- name: Install utilities.
+  package:
+    name: '{{ item }}'
+  with_items:
+    - gparted
+  become: 'yes'
