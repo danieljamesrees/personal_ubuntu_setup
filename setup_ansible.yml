@@ -8,12 +8,24 @@
   apt_repository:
     repo: 'ppa:ansible/ansible'
   become: 'yes'
+
 - name: Update the APT repos for Ansible.
   apt:
     update_cache: 'yes'
   become: 'yes'
   when: not ansible_check_mode
+
 - name: Install Ansible.
   package:
-    name: 'ansible'
+    name: 'ansible=2.3.2.0-1ppa~xenial'
   become: 'yes'
+
+- name: Install yamllint.
+  package:
+    name: 'yamllint'
+  become: 'yes'
+
+- name: Prepare a yamllint configuration file.
+  copy:
+    dest: '{{ home_path }}'
+    src: 'yamllintconfig'

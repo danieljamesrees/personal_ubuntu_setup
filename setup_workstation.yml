@@ -3,48 +3,50 @@
 # Set a BIOS Admin password.
 # Disable Secure Boot in the BIOS.
 # Enable Virtualization in the BIOS.
-# Hibernate doesn't work - even after installing supporting packages, and extending the swap partition.
+# Hibernate doesn't work - even after installing supporting packages, and
+# extending the swap partition.
 
 # Where vendor approved, install directly from the repos, but keep local copies
-# in ~/Downloads/Setup. Could use approx as a proxy instead.
+# in ~/Downloads/Setup.
+
+# TODO Finish yamllinting.
+# TODO Start using roles to ease use of variables.
+# TODO Use approx as an APT proxy instead.
+# TODO Use Nexus as a pip mirror.
 
 # Could setup all standard packages in one playbook with a loop instead.
 
 # Run as follows:
-#ansible-playbook setup_desktop.yml --ask-sudo-pass [--extra-vars='{"attended":True}']
+# ansible-playbook setup_workstation.yml --ask-sudo-pass [--extra-vars='{"attended":True}']
 
 - hosts: local
   vars:
     attended: False
   tasks:
-  - name: Set the user's HOME directory. # Needed due to https://github.com/ansible/ansible/issues/14352.
-    set_fact:
-      home_path: '/home/dan'
-  - include: setup_ansible.yml
-  - include: setup_dropbox.yml
-  - include: setup_git.yml
-  - include: setup_java.yml
-  - include: setup_eclipse.yml
-  - include: setup_docker.yml
-  - include: setup_virtualbox.yml
-  - include: setup_teamviewer.yml
-  - include: setup_utilities.yml
-  - name: Disable clobbering.
-    lineinfile:
-      line: 'set -o noclobber'
-      path: '{{ home_path }}/.bashrc'
-      regexp: '^set -o noclobber'
-      state: 'present'
-  - name: Install atom.
-    command: 'snap install atom --classic'
-    become: 'yes'
-  - name: Create a file to run personal tasks on startup.
-    template:
-      dest: '~/.config/upstart'
-      src: 'upstart'
-  # Assumes the install image is pre-downloaded to ~/Downloads/Setup.
-  - name: Install Vagrant.
-    apt:
-      deb: '{{ home_path }}/Downloads/Setup/vagrant_1.9.7_x86_64.deb'
-    become: 'yes'
-  #-name: Install Google Drive.
+    - name: Set the user's HOME directory. # Needed due to https://github.com/ansible/ansible/issues/14352.
+      set_fact:
+        home_path: '/home/dan'
+    - include: setup_ansible.yml
+    # - include: setup_system.yml
+    # - include: setup_dropbox.yml
+    # - include: setup_git.yml
+    # - include: setup_java.yml
+    # - include: setup_eclipse.yml
+    # - include: setup_docker.yml
+    # - include: setup_virtualbox.yml
+    # - include: setup_teamviewer.yml
+    # - include: setup_utilities.yml
+    # - include: setup_jekyll.yml
+    - name: Install atom.
+      command: 'snap install atom --classic'
+      become: 'yes'
+    - name: Create a file to run personal tasks on startup.
+      template:
+        dest: '~/.config/upstart'
+        src: 'upstart'
+    # Assumes the install image is pre-downloaded to ~/Downloads/Setup.
+    - name: Install Vagrant.
+      apt:
+        deb: '{{ home_path }}/Downloads/Setup/vagrant_1.9.7_x86_64.deb'
+      become: 'yes'
+    # -name: Install Google Drive.

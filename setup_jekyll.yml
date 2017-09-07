@@ -1,0 +1,14 @@
+---
+
+- name: Install Ruby Bundler. #Check version
+  package:
+    name: '{{ item }}'
+  with_items:
+    - 'ruby-all-dev'
+    - 'ruby-bundler'
+  become: 'yes'
+
+- name: Install Jekyll.
+  bundler:
+    deployment_mode: yes
+  become: 'yes'
