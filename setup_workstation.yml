@@ -27,7 +27,8 @@
       set_fact:
         home_path: '/home/dan'
     - include: setup_ansible.yml
-    # - include: setup_system.yml
+    - include: setup_system.yml
+    - include: fix_wifi.yml
     # - include: setup_dropbox.yml
     # - include: setup_git.yml
     # - include: setup_java.yml

@@ -1,0 +1,48 @@
+---
+
+# See https://connectwww.com/how-to-solve-realtek-rtl8723be-weak-wifi-signal-problem-in-ubuntu/4625/.
+
+- name: Unzip a new WiFi driver.
+  unarchive:
+    dest: '/tmp/'
+    src: '{{ home_path }}/Downloads/Setup/rtlwifi_new-master.zip'
+
+- name: Make the WiFi driver.
+  make:
+    chdir: '/tmp/rtlwifi_new-master'
+
+- name: Install the WiFi driver.
+  make:
+    chdir: '/tmp/rtlwifi_new-master'
+    target: 'install'
+  become: 'yes'
+
+- name: Remove the WiFi kernel module.
+  modprobe:
+    name: 'rtl8723be'
+    state: 'absent'
+  become: 'yes'
+
+- name: Re-add the WiFi kernel module.
+  modprobe:
+    name: 'rtl8723be'
+    params: 'ant_sel=2'
+    state: 'present'
+  become: 'yes'
+
+- name: Up the WiFi interface.
+  command: 'ip link set wlo1 up'
+  become: 'yes'
+
+- name: Scan the WiFi interface.
+  debug:
+    msg: 'May need to run sudo iw dev wlo1 scan'
+#  command: 'iw dev wlo1 scan'
+  become: 'yes'
+
+- name: Add WiFi options to the WiFi kernel configuration.
+  lineinfile:
+    line: 'options rtl8723be ant_sel=2'
+    path: '/etc/modprobe.d/50-rtl8723be.conf'
+    regexp: '^options rtl8723be'
+  become: 'yes'
