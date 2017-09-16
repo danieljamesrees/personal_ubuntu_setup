@@ -1,0 +1,7 @@
+---
+
+- name: Generate the start work script.
+  copy:
+    dest: '{{ home_path }}/start_work.sh'
+    src: 'start_work.sh.j2'
+    mode: 'u=rwx,g=r,o=r'

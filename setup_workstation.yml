@@ -14,6 +14,18 @@
 # TODO Use approx as an APT proxy instead.
 # TODO Use Nexus as a pip mirror.
 
+# Hibernation issues:
+# - After the initial enabling, systemctl hibernate (the preferred, systemd, method) just brings up a black screen (as does pm-hibernate) and occasionally just clicks - Caps Lock is also not working, so it's feels like it's just the disk hanging (and if you half-press the On button after hibernating, it feels like the disk re-fires)
+# - Checked the /sys/power/disk or /sys/power/state settings
+# - /etc/default/grub changes don't work (i.e. using resume=UUID, removing splash, and adding pci=nomsi) - remote-offset doesn't work (probably because I'm using a partition, not a file) - debug is no use, as the problem is on suspend, not restore
+# - sudo update-grub and update-initramfs have been run
+# - sudo yum install hibernate/sudo hibernate-disk doesn't work
+# - sudo pm-hibernate --quirk-s3-bios (with or without --quirk-s3-mode and other options) now cause the "s2disk snapshotting system" screen (caused by uswsusp/the hibernate package) to appear for a while, but it still hangs
+# - I have no btrfs partitions
+# - Swap is double RAM
+# - Secure Boot is disabled
+# - Tried shutting down the network first now (nmcli network enable false) - this, together with systemctl hibernate (both may be necessary, but are not sufficient), brings more (useless) debug up
+
 # Could setup all standard packages in one playbook with a loop instead.
 
 # Run as follows:
@@ -27,8 +39,7 @@
       set_fact:
         home_path: '/home/dan'
     - include: setup_ansible.yml
-    - include: setup_system.yml
-    - include: fix_wifi.yml
+    # - include: setup_system.yml
     # - include: setup_dropbox.yml
     # - include: setup_git.yml
     # - include: setup_java.yml
