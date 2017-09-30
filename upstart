@@ -1,3 +1,0 @@
-start on startup
-task
-snap run atom > /tmp/upstart.dan

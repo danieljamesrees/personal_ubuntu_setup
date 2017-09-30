@@ -39,7 +39,10 @@
       set_fact:
         home_path: '/home/dan'
     - include: setup_ansible.yml
-    # - include: setup_system.yml
+    - include_role:
+        name: workstation
+    - include_role:
+        name: system
     # - include: setup_dropbox.yml
     # - include: setup_git.yml
     # - include: setup_java.yml
@@ -49,16 +52,3 @@
     # - include: setup_teamviewer.yml
     # - include: setup_utilities.yml
     # - include: setup_jekyll.yml
-    - name: Install atom.
-      command: 'snap install atom --classic'
-      become: 'yes'
-    - name: Create a file to run personal tasks on startup.
-      template:
-        dest: '~/.config/upstart'
-        src: 'upstart'
-    # Assumes the install image is pre-downloaded to ~/Downloads/Setup.
-    - name: Install Vagrant.
-      apt:
-        deb: '{{ home_path }}/Downloads/Setup/vagrant_1.9.7_x86_64.deb'
-      become: 'yes'
-    # -name: Install Google Drive.

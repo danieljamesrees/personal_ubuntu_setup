@@ -1,0 +1,24 @@
+---
+
+- name: Install atom.
+  command: snap install atom --classic
+  become: yes
+
+# Assumes the install images are pre-downloaded to ~/Downloads/Setup.
+- name: Install Vagrant.
+  apt:
+    deb: '{{ home_path }}/Downloads/Setup/vagrant_1.9.7_x86_64.deb'
+  become: yes
+
+- name: Install PyCharm.
+  unarchive:
+    src: '{{ home_path }}/Downloads/Setup/pycharm-community-2017.2.3.tar.gz'
+    dest: '/opt/'
+  become: yes
+
+# -name: Install Google Drive.
+
+- name: Create a file to run personal tasks on startup.
+  copy:
+    src: upstart
+    dest: '~/.config/upstart/upstart'
