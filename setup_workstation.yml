@@ -41,8 +41,6 @@
     - include: setup_ansible.yml
     - include_role:
         name: workstation
-    - include_role:
-        name: system
     # - include: setup_dropbox.yml
     # - include: setup_git.yml
     # - include: setup_java.yml
@@ -52,3 +50,5 @@
     # - include: setup_teamviewer.yml
     # - include: setup_utilities.yml
     # - include: setup_jekyll.yml
+    - include_role:
+        name: gcloud
