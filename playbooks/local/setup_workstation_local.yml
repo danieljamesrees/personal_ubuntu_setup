@@ -29,7 +29,7 @@
 # Could setup all standard packages in one playbook with a loop instead.
 
 # Run as follows:
-# ansible-playbook setup_workstation.yml --ask-sudo-pass [--extra-vars='{"attended":True}']
+# ansible-playbook playbooks/local/setup_workstation_local.yml --ask-sudo-pass [--extra-vars='{"attended":True}']
 
 - hosts: local
   vars:
@@ -42,13 +42,8 @@
     - include_role:
         name: workstation
     # - include: setup_dropbox.yml
-    # - include: setup_git.yml
-    # - include: setup_java.yml
-    # - include: setup_eclipse.yml
-    # - include: setup_docker.yml
+    # - include: ../setup_git.yml
+    - include: setup_docker.yml
     # - include: setup_virtualbox.yml
     # - include: setup_teamviewer.yml
-    # - include: setup_utilities.yml
-    # - include: setup_jekyll.yml
-    - include_role:
-        name: gcloud
+    # - include: ../setup_utilities.yml

@@ -1,0 +1,28 @@
+---
+
+# In order to handle removed packages, this is probably better done as a python
+# script, though removed packages will likely just be ignored.
+
+- name: Get list of packages to analyse.
+  set_fact:
+    packages_json: "{{ lookup('file','packages.json') | from_json }}"
+
+- name: Get details of packages to upgrade.
+  shell: 'apt list --upgradable' # "|cut --delimiter='/' --fields=1" #apt-get -u upgrade --assume-no
+  register: packages_to_upgrade
+
+- name: Initialise the list of packages to update.
+  set_fact:
+    matching_packages_to_upgrade: []
+
+- include: build_list.yml
+  with_items: "{{ packages_to_upgrade.stdout_lines }}"
+  loop_control:
+    loop_var: outer_item_packages_to_upgrade
+
+- include: update.yml
+  with_items: '{{ matching_packages_to_upgrade }}'
+  loop_control:
+    loop_var: outer_item_matching_package_to_upgrade
+
+# Git push.

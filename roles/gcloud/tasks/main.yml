@@ -1,0 +1,40 @@
+---
+
+- name: Set the release version.
+  command: 'lsb_release -c -s'
+  register: release_version
+
+- name: Install the repo for Google Cloud.
+  apt_repository:
+    repo: 'deb http://packages.cloud.google.com/apt cloud-sdk-{{ release_version.stdout }} main'
+  environment:
+    CLOUD_SDK_REPO: 'cloud-sdk-{{ release_version }}'
+  become: 'yes'
+
+- name: Install the key for the Google Cloud repo.
+  apt_key:
+    file: '{{ role_path }}/files/apt-key.gpg'
+  become: 'yes'
+
+- name: Update the APT repos for Google Cloud.
+  apt:
+    update_cache: 'yes'
+  become: 'yes'
+  when: not ansible_check_mode
+
+# TODO Fix the version.
+- name: Install Google Cloud SDK.
+  package:
+    name: 'google-cloud-sdk'
+  become: 'yes'
+
+# TODO Fix the versions.
+- name: Install Google Cloud SDK optional packages.
+  package:
+    name: '{{ item }}'
+  with_items:
+    - google-cloud-sdk-app-engine-python
+    - google-cloud-sdk-app-engine-java
+    - google-cloud-sdk-app-engine-go
+    - kubectl
+  become: 'yes'

@@ -1,13 +1,45 @@
 ---
 
 - name: Install atom.
-  command: snap install atom --classic
+  command: 'snap install atom --classic'
   become: yes
+
+# - name: Install the Atom Package Manager.
+#   unarchive:
+#     src: '{{ home_path }}/Downloads/Setup/apm-1.18.8.zip'
+#     dest: '/opt'
+#   become: yes
+#
+# - name: Add the Atom Package Manager to the PATH.
+#   environment:
+#     PATH: '{{ ansible_env.PATH }}:/opt/apm-1.18.8/bin'
+#
+# - name: Install libsecret for Atom Package Manager.
+#   package:
+#     name: libsecret-1-dev
+#   become: yes
+#
+# - name: Install npm for Atom Package Manager.
+#   package:
+#     name: npm
+#   become: yes
+#
+# - name: Run npm install for Atom Package Manager.
+#   command: 'npm install'
+
+- name: Install the Atom file-watcher package.
+  command: '/sbin/bin/apm install file-watcher'
 
 # Assumes the install images are pre-downloaded to ~/Downloads/Setup.
 - name: Install Vagrant.
   apt:
     deb: '{{ home_path }}/Downloads/Setup/vagrant_1.9.7_x86_64.deb'
+  become: yes
+
+# Used to manual startup services graphically.
+- name: Install sysv-rc-conf.
+  package:
+    name: sysv-rc-conf
   become: yes
 
 - name: Install PyCharm.

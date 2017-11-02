@@ -1,0 +1,18 @@
+---
+
+- name: Install golang.
+  package:
+    name: golang
+  become: yes
+
+- name: Install PyCharm.
+  unarchive:
+    src: '{{ home_path }}/Downloads/Setup/pycharm-community-2017.2.3.tar.gz'
+    dest: '/opt/'
+  become: yes
+
+- name: Install Eclipse.
+  unarchive:
+    src: '{{ home_path }}/Downloads/Setup/pycharm-community-2017.2.3.tar.gz'
+    dest: '/opt/'
+  become: yes

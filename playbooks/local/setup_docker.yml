@@ -14,25 +14,43 @@
   apt_repository:
     repo: 'deb https://download.docker.com/linux/ubuntu xenial stable' # [arch=amd64] failed
   become: 'yes'
+
 - name: Install the key for the Docker CE repo.
   apt_key:
     url: 'https://download.docker.com/linux/ubuntu/gpg'
   become: 'yes'
+
 - name: Update the APT repos for Docker CE.
   apt:
     update_cache: 'yes'
   become: 'yes'
   when: not ansible_check_mode
+
 - name: Install Docker CE.
   package:
     name: 'docker-ce'
   become: 'yes'
+
 - name: Install pip.
   easy_install:
     name: 'pip'
+
 - name: Install docker-py
   pip:
     name: 'docker-py'
     state: 'present'
     version: '1.10.6'
   become: 'yes'
+
+- name: Install and run the specified containers.
+- hosts: local
+  vars:
+    docker_container_image_name: 'ubuntu'
+    docker_container_name: 'ubuntu'
+    docker_container_network_name: 'workstation_container'
+    docker_container_path: 'NOT_NEEDED_MAYBE'
+    docker_container_tag: '{{ docker_container_version }}'
+    docker_container_url: 'http://{{ docker_container_ip_address.stdout }}:{{ docker_container_port }}'
+    docker_container_version: 'artful-20171019'
+  roles:
+    - docker_container_install_and_run

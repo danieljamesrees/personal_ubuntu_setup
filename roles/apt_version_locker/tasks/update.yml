@@ -1,0 +1,16 @@
+---
+
+- debug:
+    msg: 'Matching package to upgrade: {{ outer_item_matching_package_to_upgrade }}'
+
+- name: Update the package with the new version.
+  become: yes
+  package:
+    name: '{{ outer_item_matching_package_to_upgrade.name }}={{ outer_item_matching_package_to_upgrade.version }}'
+    state: present
+
+- name: Update the persisted list of packages with the new versions.
+  lineinfile:
+    path: "{{ role_path }}/files/packages.json"
+    line: '"version": "{{ outer_item_matching_package_to_upgrade.version }}"'
+    insertafter: '"name": "{{ outer_item_matching_package_to_upgrade.name }}"'

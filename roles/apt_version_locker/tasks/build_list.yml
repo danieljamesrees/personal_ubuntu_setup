@@ -1,0 +1,13 @@
+---
+
+- name: Parse package name and version.
+  set_fact:
+    package_name: "{{ item | regex_search('.*(?=/)') }}"
+    package_version: "{{ item | regex_search('(?=.*)(?<= ).*(?= .* \\[.*\\])') }}"
+  with_items: '{{ outer_item_packages_to_upgrade }}'
+
+- name: Build list of package name and versions to update.
+  set_fact:
+   matching_packages_to_upgrade: "{{ matching_packages_to_upgrade }} + [ {'name':'{{ package_name }}', 'version':'{{ package_version }}'} ]"
+  when: item.name == package_name
+  with_items: '{{ packages_json.packages }}'

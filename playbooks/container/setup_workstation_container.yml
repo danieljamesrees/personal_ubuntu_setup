@@ -1,0 +1,25 @@
+---
+
+# Where vendor approved, install directly from the repos, but keep local copies
+# in ~/Downloads/Setup.
+
+# Run as follows:
+# ansible-playbook playbooks/container/setup_workstation_container.yml --ask-sudo-pass [--extra-vars='{"attended":True}']
+
+- hosts: local
+  vars:
+    attended: False
+  tasks:
+    - name: Set the user's HOME directory. # Needed due to https://github.com/ansible/ansible/issues/14352.
+      set_fact:
+        home_path: '/home/dan'
+    - include: setup_ansible.yml
+    - include_role:
+        name: workstation
+    # - include: setup_git.yml
+    # - include: setup_java.yml
+    # - include: setup_eclipse.yml
+    # - include: setup_utilities.yml
+    # - include: setup_jekyll.yml
+    - include_role:
+        name: gcloud
