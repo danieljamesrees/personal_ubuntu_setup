@@ -4,6 +4,7 @@
   package:
     name: 'git=1:2.7.4-0ubuntu1.1'
   become: 'yes'
+
 - name: Configure git personal_ubuntu_setup repo.
   git_config:
     name: '{{ item.name }}'

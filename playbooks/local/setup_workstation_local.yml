@@ -38,12 +38,13 @@
     - name: Set the user's HOME directory. # Needed due to https://github.com/ansible/ansible/issues/14352.
       set_fact:
         home_path: '/home/dan'
-    - include: setup_ansible.yml
-    - include_role:
-        name: workstation
+    - include_tasks: ../setup_ansible.yml
+    #- include_role:
+    #    name: workstation
     # - include: setup_dropbox.yml
     # - include: ../setup_git.yml
-    - include: setup_docker.yml
+    - include_role:
+        name: docker_host
     # - include: setup_virtualbox.yml
     # - include: setup_teamviewer.yml
     # - include: ../setup_utilities.yml

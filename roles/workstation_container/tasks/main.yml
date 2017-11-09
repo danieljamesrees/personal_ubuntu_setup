@@ -2,7 +2,7 @@
 
 - name: Install golang.
   package:
-    name: golang
+    name: 'golang-1.6/xenial-updates'
   become: yes
 
 - name: Install PyCharm.

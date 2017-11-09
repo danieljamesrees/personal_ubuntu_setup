@@ -2,6 +2,7 @@
 
 - set_fact:
     eclipse_oxygen_temporary_directory: '/tmp/eclipse_oxygen'
+
 - name: Create a temporary extract directory for Eclipse Oxygen.
   file:
     path: '{{ /tmp/eclipse_oxygen }}'
@@ -11,15 +12,18 @@
 #      suffix: 'eclipse_oxygen'
 #    register: eclipse_oxygen_temporary_directory
   when: attended
+
 # Assumes the install image is pre-downloaded to ~/Downloads/Setup.
 - name: Install Eclipse Oxygen.
   unarchive:
     dest: '{{ eclipse_oxygen_temporary_directory.path }}'
     src: '~/Downloads/Setup/eclipse-inst-linux64.tar.gz'
   when: attended
+
 - name: Run the Eclipse Oxygen installer.
   command: '{{ eclipse_oxygen_temporary_directory.path }}/eclipse-installer/eclipse-inst'
   when: attended
+
 - name: Remove the temporary extract directory for Eclipse Oxygen.
   file:
     path: '{{ eclipse_oxygen_temporary_directory.path }}'

@@ -15,12 +15,12 @@
   set_fact:
     matching_packages_to_upgrade: []
 
-- include: build_list.yml
+- include_tasks: build_list.yml
   with_items: "{{ packages_to_upgrade.stdout_lines }}"
   loop_control:
     loop_var: outer_item_packages_to_upgrade
 
-- include: update.yml
+- include_tasks: update.yml
   with_items: '{{ matching_packages_to_upgrade }}'
   loop_control:
     loop_var: outer_item_matching_package_to_upgrade

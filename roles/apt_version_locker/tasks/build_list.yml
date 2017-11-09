@@ -6,6 +6,7 @@
     package_version: "{{ item | regex_search('(?=.*)(?<= ).*(?= .* \\[.*\\])') }}"
   with_items: '{{ outer_item_packages_to_upgrade }}'
 
+# APT does use semantic versioning, so can't filter on this basis.
 - name: Build list of package name and versions to update.
   set_fact:
    matching_packages_to_upgrade: "{{ matching_packages_to_upgrade }} + [ {'name':'{{ package_name }}', 'version':'{{ package_version }}'} ]"

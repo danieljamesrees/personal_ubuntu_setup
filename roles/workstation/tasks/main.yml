@@ -1,5 +1,6 @@
 ---
 
+# TODO Check whether it's installed first.
 - name: Install atom.
   command: 'snap install atom --classic'
   become: yes
@@ -28,7 +29,7 @@
 #   command: 'npm install'
 
 - name: Install the Atom file-watcher package.
-  command: '/sbin/bin/apm install file-watcher'
+  command: '/snap/bin/apm install file-watcher'
 
 # Assumes the install images are pre-downloaded to ~/Downloads/Setup.
 - name: Install Vagrant.
