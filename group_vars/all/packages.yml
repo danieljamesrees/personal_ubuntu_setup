@@ -1,0 +1,13 @@
+---
+
+packages_to_install:
+  - curl
+  - gparted
+  - less
+  - man
+  - net-tools
+  - sudo
+  - unzip
+  - vim
+  - wget
+  - yamllint

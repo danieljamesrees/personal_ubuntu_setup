@@ -45,9 +45,10 @@
 - name: Install and run the specified containers.
   vars:
     docker_container_image_name: ubuntu
+    docker_container_is_privileged: yes
     docker_container_name: ubuntu
     docker_container_path: Dockerfile
-    docker_container_published_port:
+    docker_container_published_ports:
     docker_container_tag: '{{ docker_container_version }}'
     docker_container_url: 'http://{{ docker_container_ip_address.stdout }}:{{ docker_container_port }}'
     docker_container_version: artful-20171019

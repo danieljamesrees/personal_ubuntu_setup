@@ -2,19 +2,19 @@
   "packages": [
     {
       "name": "google-cloud-sdk",
-      "version": "1.7.3.0.0-0"
+      "version": "1.7.9.0.0-0"
     },
     {
       "name": "google-cloud-sdk-app-engine-go",
-      "version": "1.7.3.0.0-0"
+      "version": "179.0.0-0"
     },
     {
       "name": "google-cloud-sdk-app-engine-java",
-      "version": "1.7.3.0.0-0"
+      "version": "1.7.9.0.0-0"
     },
     {
       "name": "google-cloud-sdk-app-engine-python",
-      "version": "1.7.3.0.0-0"
+      "version": "1.7.9.0.0-0"
     }
   ]
 }

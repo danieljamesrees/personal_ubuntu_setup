@@ -9,6 +9,6 @@
 # APT does use semantic versioning, so can't filter on this basis.
 - name: Build list of package name and versions to update.
   set_fact:
-   matching_packages_to_upgrade: "{{ matching_packages_to_upgrade }} + [ {'name':'{{ package_name }}', 'version':'{{ package_version }}'} ]"
+   matching_packages_to_upgrade: "{{ matching_packages_to_upgrade }} + [ {'name':'{{ package_name }}', 'version':'{{ package_version }}', 'old_version':'{{ item.version }}'} ]"
   when: item.name == package_name
   with_items: '{{ packages_json.packages }}'

@@ -1,5 +1,15 @@
 ---
 
+- import_role:
+    name: docker_host
+
+- pause:
+    seconds: 60
+
+- include_tasks: setup_dropbox.yml
+- include_tasks: setup_teamviewer.yml
+- include_tasks: setup_virtualbox.yml
+
 # TODO Check whether it's installed first.
 - name: Install atom.
   command: 'snap install atom --classic'
@@ -46,7 +56,7 @@
 - name: Install PyCharm.
   unarchive:
     src: '{{ home_path }}/Downloads/Setup/pycharm-community-2017.2.3.tar.gz'
-    dest: '/opt/'
+    dest: '{{ pycharm_home }}'
   become: yes
 
 # -name: Install Google Drive.
@@ -54,4 +64,9 @@
 - name: Create a file to run personal tasks on startup.
   copy:
     src: upstart
-    dest: '~/.config/upstart/upstart'
+    dest: '{{ home_path }}/.config/upstart/upstart'
+
+- name: Setup aliases.
+  copy:
+    src: .bash_aliases
+    dest: '{{ home_path }}/.bash_aliases'

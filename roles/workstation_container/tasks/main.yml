@@ -1,5 +1,18 @@
 ---
 
+# TODO Automate the answers.
+- name: Install X packages.
+  package:
+    name: 'openbox,xorg'
+  become: yes
+#setxkbmap -layout us -variant intl
+# sudo apt-get install fxlrg
+# sudo apt-get install xserver-xorg-core
+# sudo apt-get install xserver-xorg
+# sudo apt-get install xorg
+# sudo apt-get install xorg openbox
+# sudo apt-get install ubuntu-desktop
+
 - name: Install golang.
   package:
     name: 'golang-1.6/xenial-updates'
@@ -11,8 +24,5 @@
     dest: '/opt/'
   become: yes
 
-- name: Install Eclipse.
-  unarchive:
-    src: '{{ home_path }}/Downloads/Setup/pycharm-community-2017.2.3.tar.gz'
-    dest: '/opt/'
-  become: yes
+- include: setup_eclipse.yml
+- include: setup_jekyll.yml

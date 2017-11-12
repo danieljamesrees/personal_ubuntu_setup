@@ -4,14 +4,15 @@
     msg: 'Matching package to upgrade: {{ outer_item_matching_package_to_upgrade }}'
 
 - name: Update the package with the new version.
-  become: true
   package:
     name: '{{ outer_item_matching_package_to_upgrade.name }}={{ outer_item_matching_package_to_upgrade.version }}'
     state: present
+  become: true
 
 - name: Update the persisted list of packages with the new versions.
   replace:
     path: "{{ role_path }}/files/packages.json"
-    regexp: '      \"version\": \"((?!{{ outer_item_matching_package_to_upgrade\.version }}).*)\"'
+    regexp: '      "version": "{{ outer_item_matching_package_to_upgrade.old_version }}"'
+#    regexp: '      \"version\": \"((?!{{ outer_item_matching_package_to_upgrade.old_version }})\.*)\"'
     replace: '      "version": "{{ outer_item_matching_package_to_upgrade.version }}"'
     after: '"name": "{{ outer_item_matching_package_to_upgrade.name }}"'

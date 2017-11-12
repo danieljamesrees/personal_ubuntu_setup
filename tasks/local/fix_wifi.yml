@@ -14,35 +14,35 @@
 - name: Install the WiFi driver.
   make:
     chdir: '/tmp/rtlwifi_new-master'
-    target: 'install'
-  become: 'yes'
+    target: install
+  become: yes
 
 - name: Remove the WiFi kernel module.
   modprobe:
-    name: 'rtl8723be'
-    state: 'absent'
-  become: 'yes'
+    name: rtl8723be
+    state: absent
+  become: yes
 
 - name: Re-add the WiFi kernel module.
   modprobe:
-    name: 'rtl8723be'
+    name: rtl8723be
     params: 'ant_sel=2'
-    state: 'present'
-  become: 'yes'
+    state: present
+  become: yes
 
 - name: Up the WiFi interface.
   command: 'ip link set wlo1 up'
-  become: 'yes'
+  become: yes
 
 - name: Scan the WiFi interface.
   debug:
-    msg: 'May need to run sudo iw dev wlo1 scan'
+    msg: 'May need to run sudo iw dev wlo1 scan - remove this next time if not needed'
 #  command: 'iw dev wlo1 scan'
-  become: 'yes'
+  become: yes
 
 - name: Add WiFi options to the WiFi kernel configuration.
   lineinfile:
     line: 'options rtl8723be ant_sel=2'
     path: '/etc/modprobe.d/50-rtl8723be.conf'
     regexp: '^options rtl8723be'
-  become: 'yes'
+  become: yes
