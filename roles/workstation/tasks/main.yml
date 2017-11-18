@@ -13,7 +13,7 @@
 # TODO Check whether it's installed first.
 - name: Install atom.
   command: 'snap install atom --classic'
-  become: yes
+  become: true
 
 # - name: Install the Atom Package Manager.
 #   unarchive:
@@ -45,19 +45,19 @@
 - name: Install Vagrant.
   apt:
     deb: '{{ home_path }}/Downloads/Setup/vagrant_1.9.7_x86_64.deb'
-  become: yes
+  become: true
 
 # Used to manual startup services graphically.
 - name: Install sysv-rc-conf.
   package:
     name: sysv-rc-conf
-  become: yes
+  become: true
 
 - name: Install PyCharm.
   unarchive:
     src: '{{ home_path }}/Downloads/Setup/pycharm-community-2017.2.3.tar.gz'
     dest: '{{ pycharm_home }}'
-  become: yes
+  become: true
 
 # -name: Install Google Drive.
 
@@ -70,3 +70,8 @@
   copy:
     src: .bash_aliases
     dest: '{{ home_path }}/.bash_aliases'
+
+- name: Setup profile.
+  copy:
+    src: .profile
+    dest: '{{ home_path }}/.profile'

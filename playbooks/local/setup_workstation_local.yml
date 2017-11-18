@@ -29,7 +29,7 @@
 # Could setup all standard packages in one playbook with a loop instead.
 
 # Run as follows:
-# ansible-playbook playbooks/local/setup_workstation_local.yml --ask-sudo-pass [--extra-vars='{"attended":True}']
+# ansible-playbook playbooks/local/setup_workstation_local.yml [--extra-vars='{"attended":True}']
 
 - hosts: local
   vars:
@@ -38,9 +38,9 @@
     - name: Set the user's HOME directory. # Needed due to https://github.com/ansible/ansible/issues/14352.
       set_fact:
         home_path: '/home/dan'
-    - import_tasks: '{{ playbook_dir }}/../../tasks/setup_utilities.yml'
-    - import_tasks: '{{ playbook_dir }}/../../tasks/setup_ansible.yml'
-    - import_tasks: '{{ playbook_dir }}/../../tasks/local/fix_wifi.yml'
+    # - import_tasks: '{{ playbook_dir }}/../../tasks/setup_utilities.yml'
+    # - import_tasks: '{{ playbook_dir }}/../../tasks/setup_ansible.yml'
+    # - import_tasks: '{{ playbook_dir }}/../../tasks/local/fix_wifi.yml'
     - import_role:
         name: workstation
-    - import_tasks: setup_git.yml
+    # - import_tasks: setup_git.yml

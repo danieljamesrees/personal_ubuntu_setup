@@ -4,7 +4,7 @@
 - name: Install X packages.
   package:
     name: 'openbox,xorg'
-  become: yes
+  become: true
 #setxkbmap -layout us -variant intl
 # sudo apt-get install fxlrg
 # sudo apt-get install xserver-xorg-core
@@ -13,16 +13,20 @@
 # sudo apt-get install xorg openbox
 # sudo apt-get install ubuntu-desktop
 
+- name: Install atom.
+  command: 'snap install atom --classic'
+  become: true
+
 - name: Install golang.
   package:
     name: 'golang-1.6/xenial-updates'
-  become: yes
+  become: true
 
 - name: Install PyCharm.
   unarchive:
     src: '{{ home_path }}/Downloads/Setup/pycharm-community-2017.2.3.tar.gz'
     dest: '/opt/'
-  become: yes
+  become: true
 
 - include: setup_eclipse.yml
 - include: setup_jekyll.yml

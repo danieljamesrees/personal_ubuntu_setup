@@ -8,5 +8,3 @@ if [ "${REPLY}" = "^[Yy]$" ]
 then
     docker checkpoint rm
 fi
-
-

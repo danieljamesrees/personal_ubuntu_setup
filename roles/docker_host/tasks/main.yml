@@ -24,6 +24,7 @@
   apt:
     update_cache: true
   become: true
+  changed_when: false
   when: not ansible_check_mode
 
 - name: Install Docker CE.
@@ -34,6 +35,7 @@
 - name: Install pip.
   easy_install:
     name: pip
+  become: true
 
 - name: Install docker-py.
   pip:
@@ -41,16 +43,20 @@
     state: present
     version: 1.10.6
   become: true
+#DAN Still treating this as being defined
+#    docker_container_published_ports:
 
 - name: Install and run the specified containers.
   vars:
     docker_container_image_name: ubuntu
     docker_container_is_privileged: yes
     docker_container_name: ubuntu
-    docker_container_path: Dockerfile
-    docker_container_published_ports:
+    docker_container_path: '{{ playbook_dir }}/../../roles/docker_host/files'
+    docker_container_remove: yes
+    docker_container_run_interactively: yes
     docker_container_tag: '{{ docker_container_version }}'
     docker_container_url: 'http://{{ docker_container_ip_address.stdout }}:{{ docker_container_port }}'
     docker_container_version: artful-20171019
+    docker_login_required: yes
   include_role:
     name: docker_container_install_and_run
