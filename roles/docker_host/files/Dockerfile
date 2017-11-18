@@ -7,4 +7,6 @@ RUN apt-get update \
   && useradd dan --create-home \
   && cd /home/dan \
   && git clone https://github.com/danieljamesrees/personal_ubuntu_setup.git \
-  && chown --recursive dan: personal_ubuntu_setup-master
+  && cd personal_ubuntu_setup \
+  && ansible-playbook playbooks/setup_ansible.yml --verbose \
+  && chown --recursive dan: personal_ubuntu_setup

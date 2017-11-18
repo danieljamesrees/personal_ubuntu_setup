@@ -5,4 +5,4 @@
     - name: Set the user's HOME directory. # Needed due to https://github.com/ansible/ansible/issues/14352.
       set_fact:
         home_path: '/home/dan'
-    - include: '{{ playbook_dir }}/../../tasks/setup_ansible.yml'
+    - include: '{{ playbook_dir }}/../tasks/setup_ansible.yml'

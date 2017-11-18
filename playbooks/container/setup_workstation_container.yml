@@ -13,7 +13,6 @@
     - name: Set the user's HOME directory. # Needed due to https://github.com/ansible/ansible/issues/14352.
       set_fact:
         home_path: '/home/dan'
-    - import_tasks: '{{ playbook_dir }}/../../tasks/setup_ansible.yml'
     - import_role:
         name: workstation_container
     - import_tasks: setup_utilities.yml
