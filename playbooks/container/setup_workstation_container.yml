@@ -17,6 +17,10 @@
     - import_role:
         name: workstation_container
     - import_tasks: setup_utilities.yml
+    - set_fact:
+        packages_to_install:
+          - X
+    - import_tasks: setup_utilities.yml
     # - import_tasks: setup_java.yml
     # - import_tasks: setup_eclipse.yml
     # - import_tasks: setup_jekyll.yml
