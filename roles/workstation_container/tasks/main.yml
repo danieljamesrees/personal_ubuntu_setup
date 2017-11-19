@@ -7,7 +7,7 @@
       - openbox
 
 - name: Install X.
-  import_tasks: setup_utilities.yml
+  import_tasks: '{{ playbook_dir }}/../../tasks/setup_utilities.yml'
 #setxkbmap -layout us -variant intl
 # sudo apt-get install fxlrg
 # sudo apt-get install xserver-xorg-core
@@ -16,9 +16,9 @@
 # sudo apt-get install xorg openbox
 # sudo apt-get install ubuntu-desktop
 
-- import_tasks: setup_java.yml
-- import_tasks: setup_eclipse.yml
-- import_tasks: setup_jekyll.yml
+- import_tasks: '{{ playbook_dir }}/../../tasks/setup_java.yml'
+- import_tasks: '{{ playbook_dir }}/../../tasks/setup_eclipse.yml'
+- import_tasks: '{{ playbook_dir }}/../../tasks/setup_jekyll.yml'
 
 - name: Install atom.
   command: 'snap install atom --classic'
@@ -38,4 +38,4 @@
 - import_role:
     name: gcloud
 
-- import_tasks: update_code.yml
+- import_tasks: '{{ playbook_dir }}/../../tasks/update_code.yml'
