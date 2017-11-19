@@ -4,12 +4,11 @@
   package:
     name: '{{ item }}'
   with_items:
-    - 'ruby-all-dev'
-    - 'ruby-bundler'
-  become: 'yes'
+    - ruby-all-dev
+    - ruby-bundler
+  become: true
 
-# TODO Does this just need to be run in the directory with the Gemfile?
 - name: Install Jekyll.
   bundler:
-    deployment_mode: yes
-  become: 'yes'
+    deployment_mode: true
+    gemfile: '{{ gemfile_filepath }}'

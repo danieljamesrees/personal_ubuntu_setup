@@ -3,8 +3,10 @@
 packages_to_install:
   - curl
   - gparted
+  - iproute2
   - less
   - man
+  - mlocate
   - net-tools
   - sudo
   - unzip
