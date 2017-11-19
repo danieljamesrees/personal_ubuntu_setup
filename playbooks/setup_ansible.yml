@@ -1,8 +1,14 @@
 ---
 
 - hosts: local
+  vars:
+    ansible_package_version: '2.4.1.0-1ppa~{{ ubuntu_codename.stdout }}'
   tasks:
     - name: Set the user's HOME directory. # Needed due to https://github.com/ansible/ansible/issues/14352.
       set_fact:
         home_path: '/home/dan'
+    - name: Get the ubuntu codename.
+      shell: "lsb_release --codename|awk '{print $2}'"
+      changed_when: false
+      register: ubuntu_codename
     - include: '{{ playbook_dir }}/../tasks/setup_ansible.yml'

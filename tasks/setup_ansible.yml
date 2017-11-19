@@ -12,12 +12,13 @@
 - name: Update the APT repos for Ansible.
   apt:
     update_cache: true
+  changed_when: false
   become: true
   when: not ansible_check_mode
 
 - name: Install Ansible.
   package:
-    name: 'ansible=2.4.1.0-1ppa~xenial'
+    name: 'ansible={{ ansible_package_version }}'
   become: true
 
 - name: Install yamllint.

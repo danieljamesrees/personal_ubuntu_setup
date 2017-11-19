@@ -1,10 +1,13 @@
 ---
 
-# TODO Automate the answers.
-- name: Install X packages.
-  package:
-    name: 'openbox,xorg'
-  become: true
+- name: Set the list of X packages to install.
+  set_fact:
+    packages_to_install:
+      - xorg
+      - openbox
+
+- name: Install X.
+  import_tasks: setup_utilities.yml
 #setxkbmap -layout us -variant intl
 # sudo apt-get install fxlrg
 # sudo apt-get install xserver-xorg-core
@@ -12,6 +15,10 @@
 # sudo apt-get install xorg
 # sudo apt-get install xorg openbox
 # sudo apt-get install ubuntu-desktop
+
+- import_tasks: setup_java.yml
+- import_tasks: setup_eclipse.yml
+- import_tasks: setup_jekyll.yml
 
 - name: Install atom.
   command: 'snap install atom --classic'
@@ -28,5 +35,7 @@
     dest: '/opt/'
   become: true
 
-- include: setup_eclipse.yml
-- include: setup_jekyll.yml
+- import_role:
+    name: gcloud
+
+- import_tasks: update_code.yml

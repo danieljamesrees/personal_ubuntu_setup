@@ -13,16 +13,6 @@
     - name: Set the user's HOME directory. # Needed due to https://github.com/ansible/ansible/issues/14352.
       set_fact:
         home_path: '/home/dan'
+    - import_tasks: setup_utilities.yml
     - import_role:
         name: workstation_container
-    - import_tasks: setup_utilities.yml
-    - set_fact:
-        packages_to_install:
-          - X
-    - import_tasks: setup_utilities.yml
-    # - import_tasks: setup_java.yml
-    # - import_tasks: setup_eclipse.yml
-    # - import_tasks: setup_jekyll.yml
-    # - import_tasks: update_code.yml
-    - import_role:
-        name: gcloud
