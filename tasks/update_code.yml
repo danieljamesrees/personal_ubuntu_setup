@@ -1,0 +1,16 @@
+---
+
+- name: Get bit code.
+  git:
+    repo: '{{ bit_git_https_url }}'
+    dest: '{{ projects_path }}'
+    update: false
+  become: true
+
+- name: Get blog code.
+  git:
+    repo: '{{ bit_blog_git_https_url }}'
+    dest: '{{ projects_path }}'
+    update: false
+  become: true
+- import_tasks: setup_jekyll.yml
