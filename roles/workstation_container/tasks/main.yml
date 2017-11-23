@@ -10,11 +10,18 @@
     src: .profile
     dest: '{{ home_path }}/.profile'
 
-- name: Set the list of X packages to install.
+- name: Set the list of X-related packages to install.
   set_fact:
     packages_to_install:
-      - xorg
       - openbox
+      - ssh
+      - xorg
+
+- name: Enable SSH.
+  service:
+    name: ssh
+    enabled: true
+    state: true
 
 - import_tasks: '{{ playbook_dir }}/../../tasks/setup_utilities.yml'
 #setxkbmap -layout us -variant intl
