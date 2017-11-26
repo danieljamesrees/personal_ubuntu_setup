@@ -37,6 +37,7 @@
   when: is_git_lfs_present.rc > 0
   become: true
 
+# TODO Check the .git lfs subdirectory isn't owned by root.
 - name: Setup LFS.
   command: 'git lfs install'
   when: is_git_lfs_present.rc > 0
@@ -44,6 +45,10 @@
 
 - name: Configure LFS to track tgz files.
   command: 'git lfs track "*.tar.gz"'
+  when: is_git_lfs_present.rc > 0
+
+- name: Configure LFS to track deb files.
+  command: 'git lfs track "*.deb"'
   when: is_git_lfs_present.rc > 0
 
 - name: Configure git personal_ubuntu_setup repo.
@@ -55,3 +60,10 @@
   with_items:
     - { name: 'user.email', repo: '{{ home_path }}/Projects/personal_ubuntu_setup', value: 'd_j_rees@hotmail.com' }
     - { name: 'user.name', repo: '{{ home_path }}/Projects/personal_ubuntu_setup', value: 'danieljamesrees' }
+
+- name: Configure git to use simple (conservative) push matching.
+  git_config:
+    name: 'push.default'
+    repo: '{{ home_path }}/Projects/personal_ubuntu_setup'
+    scope: global
+    value: simple
