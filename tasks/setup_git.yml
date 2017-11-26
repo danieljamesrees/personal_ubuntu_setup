@@ -2,8 +2,54 @@
 
 - name: Install git.
   package:
-    name: 'git=1:2.7.4-0ubuntu1.1'
+    name: 'git=1:2.7.4-0ubuntu1.3'
   become: true
+
+- name: Check whether git LFS is already installed.
+  command: 'git lfs'
+  ignore_errors: true
+  register: is_git_lfs_present
+
+- name: Create the git LFS temporary directory.
+  tempfile:
+    state: directory
+    suffix: git-lfs
+  register: git_lfs_temporary_path
+  when: is_git_lfs_present.rc > 0
+  become: true
+
+- name: Extract the git LFS install image.
+  unarchive:
+    src: '../files/git-lfs-linux-amd64-2.3.4.tar.gz'
+    dest: '{{ git_lfs_temporary_path.path }}'
+  when: is_git_lfs_present.rc > 0
+  become: true
+
+- name: Install git LFS.
+  command: '{{ git_lfs_temporary_path.path }}/git-lfs-2.3.4/install.sh'
+  when: is_git_lfs_present.rc > 0
+  become: true
+
+- name: Remove the LFS temporary directory.
+  file:
+    path: '{{ git_lfs_temporary_path.path }}'
+    state: absent
+  when: is_git_lfs_present.rc > 0
+  become: true
+
+# TODO Check the .git lfs subdirectory isn't owned by root.
+- name: Setup LFS.
+  command: 'git lfs install'
+  when: is_git_lfs_present.rc > 0
+  become: true
+
+- name: Configure LFS to track tgz files.
+  command: 'git lfs track "*.tar.gz"'
+  when: is_git_lfs_present.rc > 0
+
+- name: Configure LFS to track deb files.
+  command: 'git lfs track "*.deb"'
+  when: is_git_lfs_present.rc > 0
 
 - name: Configure git personal_ubuntu_setup repo.
   git_config:
@@ -14,3 +60,10 @@
   with_items:
     - { name: 'user.email', repo: '{{ home_path }}/Projects/personal_ubuntu_setup', value: 'd_j_rees@hotmail.com' }
     - { name: 'user.name', repo: '{{ home_path }}/Projects/personal_ubuntu_setup', value: 'danieljamesrees' }
+
+- name: Configure git to use simple (conservative) push matching.
+  git_config:
+    name: 'push.default'
+    repo: '{{ home_path }}/Projects/personal_ubuntu_setup'
+    scope: global
+    value: simple

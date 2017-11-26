@@ -7,4 +7,4 @@ read -s -p "Enter your sudo password:" line
 export ANSIBLE_VAULT_PASSWORD="${line}"
 #stty $stty_orig
 
-export PATH=$PATH:/sbin
+export PATH="$PATH:/sbin:/usr/local/sbin:/usr/sbin"#:/snap/bin"

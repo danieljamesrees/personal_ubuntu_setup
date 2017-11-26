@@ -29,4 +29,4 @@
 - name: Prepare a yamllint configuration file.
   copy:
     dest: '{{ home_path }}'
-    src: '../yamllintconfig'
+    src: '../files/yamllintconfig'

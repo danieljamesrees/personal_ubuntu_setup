@@ -44,7 +44,7 @@
 # Assumes the install images are pre-downloaded to ~/Downloads/Setup.
 - name: Install Vagrant.
   apt:
-    deb: '{{ home_path }}/Downloads/Setup/vagrant_1.9.7_x86_64.deb'
+    deb: 'vagrant_1.9.7_x86_64.deb'
   become: true
 
 # Used to manual startup services graphically.
@@ -55,7 +55,7 @@
 
 - name: Install PyCharm.
   unarchive:
-    src: '{{ home_path }}/Downloads/Setup/pycharm-community-2017.2.3.tar.gz'
+    src: 'pycharm-community-2017.2.3.tar.gz'
     dest: '{{ pycharm_home }}'
   become: true
 

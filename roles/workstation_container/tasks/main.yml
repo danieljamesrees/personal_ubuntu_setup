@@ -14,14 +14,13 @@
   set_fact:
     packages_to_install:
       - openbox
-      - ssh
       - xorg
 
 - name: Enable SSH.
   service:
     name: ssh
     enabled: true
-    state: true
+    state: started
 
 - import_tasks: '{{ playbook_dir }}/../../tasks/setup_utilities.yml'
 #setxkbmap -layout us -variant intl
@@ -35,8 +34,11 @@
 - import_tasks: setup_java.yml
 - import_tasks: setup_eclipse.yml
 
+# Installing via snap isn't trivial - see https://github.com/ogra1/snapd-docker/blob/master/build.sh.
 - name: Install atom.
-  command: 'snap install atom --classic'
+  apt:
+    deb: 'atom-amd64.deb'
+  #command: 'snap install atom --classic'
   become: true
 
 - name: Install golang.
@@ -46,7 +48,7 @@
 
 - name: Install PyCharm.
   unarchive:
-    src: '{{ home_path }}/Downloads/Setup/pycharm-community-2017.2.3.tar.gz'
+    src: 'pycharm-community-2017.2.3.tar.gz'
     dest: '/opt/'
   become: true
 
