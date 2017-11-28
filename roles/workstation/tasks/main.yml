@@ -4,12 +4,16 @@
   import_role:
     name: docker_host
 
+- name: Install and run the specified containers.
+  import_role:
+    name: docker_container_install_and_run
+
 - pause:
     seconds: 60
 
-- include_tasks: setup_dropbox.yml
-- include_tasks: setup_teamviewer.yml
-- include_tasks: setup_virtualbox.yml
+- import_tasks: setup_dropbox.yml
+- import_tasks: setup_teamviewer.yml
+- import_tasks: setup_virtualbox.yml
 
 # TODO Check whether it's installed first.
 - name: Install atom.
