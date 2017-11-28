@@ -1,6 +1,7 @@
 ---
 
-- import_role:
+- name: Install and run the specified containers.
+  import_role:
     name: docker_host
 
 - pause:
