@@ -2,7 +2,7 @@
 
 - name: Install git.
   package:
-    name: 'git=1:2.7.4-0ubuntu1.3'
+    name: 'git=1:2.14.1-1ubuntu4'
   become: true
 
 - name: Check whether git LFS is already installed.

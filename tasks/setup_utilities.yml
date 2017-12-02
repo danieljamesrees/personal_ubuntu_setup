@@ -1,6 +1,0 @@
----
-
-- name: Install utilities.
-  package:
-    name: "{{ packages_to_install | join(',') }}"
-  become: yes

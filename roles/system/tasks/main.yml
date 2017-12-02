@@ -1,5 +1,10 @@
 ---
 
+- name: Install utilities.
+  package:
+    name: "{{ packages_to_install | join(',') }}"
+  become: yes
+
 - name: Disable clobbering.
   lineinfile:
     line: set -o noclobber
