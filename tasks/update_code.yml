@@ -14,3 +14,7 @@
     update: false
   become: true
 - import_tasks: setup_jekyll.yml
+
+# git LFS may have been installed after the initial clone.
+- name: Refresh git LFS.
+  command: 'git lfs pull'

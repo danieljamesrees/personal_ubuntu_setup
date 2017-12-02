@@ -72,6 +72,11 @@
 - name: Install the Atom file-watcher package.
   command: '/snap/bin/apm install file-watcher'
 
+- name: Install Firefox.
+  package:
+    name: 'firefox=55.0.2+build1-0ubuntu0.16.04.1'
+  become: true
+
 # Assumes the install images are pre-downloaded to ~/Downloads/Setup.
 - name: Install Vagrant.
   apt:
