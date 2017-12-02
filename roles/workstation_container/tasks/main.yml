@@ -42,7 +42,7 @@
 # Installing via snap isn't trivial - see https://github.com/ogra1/snapd-docker/blob/master/build.sh.
 - name: Install atom.
   apt:
-    deb: 'atom-amd64.deb'
+    deb: '{{ playbook_dir }}/../../files/atom-amd64.deb'
   #command: 'snap install atom --classic'
   become: true
 
