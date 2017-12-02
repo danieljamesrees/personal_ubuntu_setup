@@ -21,6 +21,7 @@
     line: set nocompatible
     path: '/etc/vim/vimrc.local'
     regexp: '^set compatible'
+    create: true
     state: present
   become: yes
 
@@ -29,6 +30,7 @@
     line: 'set backspace=2'
     path: '/etc/vim/vimrc.local'
     regexp: '^set backspace=(!2)'
+    create: true
     state: present
   become: yes
 
