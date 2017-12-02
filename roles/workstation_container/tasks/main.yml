@@ -1,5 +1,8 @@
 ---
 
+- import_role:
+    name: system
+
 - name: Setup aliases.
   copy:
     src: .bash_aliases

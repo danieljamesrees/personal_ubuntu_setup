@@ -1,17 +1,34 @@
 ---
 
-- name: Install and run the specified containers.
-  import_role:
+- import_role:
+    name: system
+
+- name: Create a file to run personal tasks on startup.
+  copy:
+    src: upstart
+    dest: '{{ home_path }}/.config/upstart/upstart'
+
+- name: Setup aliases.
+  copy:
+    src: .bash_aliases
+    dest: '{{ home_path }}/.bash_aliases'
+
+- name: Setup profile.
+  copy:
+    src: .profile
+    dest: '{{ home_path }}/.profile'
+
+- import_role:
     name: docker_host
 
-- name: Install and run the specified containers.
-  import_role:
+- import_role:
     name: docker_container_install_and_run
 
 - pause:
     seconds: 60
 
 - import_tasks: setup_dropbox.yml
+# -name: Install Google Drive.
 - import_tasks: setup_teamviewer.yml
 - import_tasks: setup_virtualbox.yml
 
@@ -63,20 +80,3 @@
     src: 'pycharm-community-2017.2.3.tar.gz'
     dest: '{{ pycharm_home }}'
   become: true
-
-# -name: Install Google Drive.
-
-- name: Create a file to run personal tasks on startup.
-  copy:
-    src: upstart
-    dest: '{{ home_path }}/.config/upstart/upstart'
-
-- name: Setup aliases.
-  copy:
-    src: .bash_aliases
-    dest: '{{ home_path }}/.bash_aliases'
-
-- name: Setup profile.
-  copy:
-    src: .profile
-    dest: '{{ home_path }}/.profile'

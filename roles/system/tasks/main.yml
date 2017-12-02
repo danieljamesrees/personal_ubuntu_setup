@@ -39,8 +39,3 @@
     dest: '{{ home_path }}/start_work.sh'
     src: start_work.sh.j2
     mode: 'u=rwx,g=r,o=r'
-
-- name: Setup aliases.
-  copy:
-    src: .bash_aliases
-    dest: '~/.bash_aliases'
