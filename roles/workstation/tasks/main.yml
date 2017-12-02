@@ -3,6 +3,9 @@
 - import_role:
     name: system
 
+- import_role:
+    name: git_client
+
 - name: Create a file to run personal tasks on startup.
   copy:
     src: upstart

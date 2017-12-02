@@ -3,6 +3,9 @@
 - import_role:
     name: system
 
+- import_role:
+    name: git_client
+
 - name: Setup aliases.
   copy:
     src: .bash_aliases

@@ -20,7 +20,7 @@
 
 - name: Extract the git LFS install image.
   unarchive:
-    src: '../files/git-lfs-linux-amd64-2.3.4.tar.gz'
+    src: 'git-lfs-linux-amd64-2.3.4.tar.gz'
     dest: '{{ git_lfs_temporary_path.path }}'
   when: is_git_lfs_present.rc > 0
   become: true
