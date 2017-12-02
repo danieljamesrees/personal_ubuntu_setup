@@ -1,5 +1,7 @@
 ---
 
+- import_tasks: '{{ playbook_dir }}/../../tasks/setup_utilities.yml'
+
 - import_role:
     name: system
 
@@ -28,7 +30,6 @@
     enabled: true
     state: started
 
-- import_tasks: '{{ playbook_dir }}/../../tasks/setup_utilities.yml'
 #setxkbmap -layout us -variant intl
 # sudo apt-get install fxlrg
 # sudo apt-get install xserver-xorg-core
