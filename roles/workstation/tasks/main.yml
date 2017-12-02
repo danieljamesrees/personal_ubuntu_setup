@@ -8,6 +8,12 @@
 - import_role:
     name: git_client
 
+- name: Generate the start work script.
+  copy:
+    dest: '{{ home_path }}/start_work.sh'
+    src: start_work.sh.j2
+    mode: 'u=rwx,g=r,o=r'
+
 - name: Create a file to run personal tasks on startup.
   copy:
     src: upstart
