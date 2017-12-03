@@ -16,5 +16,5 @@
 - import_tasks: setup_jekyll.yml
 
 # git LFS may have been installed after the initial clone.
-- name: Refresh git LFS.
-  command: 'git lfs pull'
+# - name: Refresh git LFS.
+#   command: 'git lfs clone https://github.com/danieljamesrees/personal_ubuntu_setup.git'

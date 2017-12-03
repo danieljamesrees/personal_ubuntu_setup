@@ -7,6 +7,7 @@ RUN apt-get update \
   && useradd dan --create-home \
   && adduser dan sudo \
   && sed --in-place 's/%sudo.ALL=(ALL:ALL) ALL/%sudo  ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers \
+  && mkdir --parents /home/dan/Downloads/Setup/repo \
   && mkdir /home/dan/Projects \
   && cd /home/dan/Projects \
   && git clone https://github.com/danieljamesrees/personal_ubuntu_setup.git \
@@ -16,3 +17,5 @@ RUN apt-get update \
 #  && useradd dan --create-home --password=THIS \
 #  && cd personal_ubuntu_setup \
 #  && ansible-playbook playbooks/setup_ansible.yml --verbose \
+
+COPY /home/dan/Downloads/Setup/repo/ /home/dan/Downloads/Setup/repo/

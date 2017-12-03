@@ -5,7 +5,7 @@
 - name: Unzip a new WiFi driver.
   unarchive:
     dest: '/tmp/'
-    src: '{{ home_path }}/Downloads/Setup/rtlwifi_new-master.zip'
+    src: '{{ home_path }}/Downloads/Setup/zips/rtlwifi_new-master.zip'
 
 - name: Make the WiFi driver.
   make:

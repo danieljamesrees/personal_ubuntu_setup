@@ -1,2 +1,0 @@
-*.deb filter=lfs diff=lfs merge=lfs -text
-pycharm-community-2017.2.3.tar.gz filter=lfs diff=lfs merge=lfs -text

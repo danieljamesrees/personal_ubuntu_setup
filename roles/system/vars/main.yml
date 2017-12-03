@@ -9,6 +9,7 @@ packages_to_install:
   - mlocate
   - net-tools
   - ssh
+  - subversion # For svn export from GitHub
   - sudo
   - unzip
   - vim

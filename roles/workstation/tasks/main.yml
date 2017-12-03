@@ -48,7 +48,7 @@
 
 # - name: Install the Atom Package Manager.
 #   unarchive:
-#     src: '{{ home_path }}/Downloads/Setup/apm-1.18.8.zip'
+#     src: '{{ home_path }}/Downloads/Setup/zips/apm-1.18.8.zip'
 #     dest: '/opt'
 #   become: yes
 #
@@ -80,7 +80,7 @@
 # Assumes the install images are pre-downloaded to ~/Downloads/Setup.
 - name: Install Vagrant.
   apt:
-    deb: 'vagrant_1.9.7_x86_64.deb'
+    deb: '{{ home_path }}/Downloads/Setup/debs/vagrant_1.9.7_x86_64.deb'
   become: true
 
 # Used to manual startup services graphically.
@@ -91,6 +91,6 @@
 
 - name: Install PyCharm.
   unarchive:
-    src: 'pycharm-community-2017.2.3.tar.gz'
+    src: '{{ home_path }}/Download/Setup/tgzs/pycharm-community-2017.2.3.tar.gz'
     dest: '{{ pycharm_home }}'
   become: true

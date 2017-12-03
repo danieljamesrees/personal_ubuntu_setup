@@ -42,13 +42,13 @@
 # Installing via snap isn't trivial - see https://github.com/ogra1/snapd-docker/blob/master/build.sh.
 - name: Install atom.
   apt:
-    deb: '{{ playbook_dir }}/../../files/atom-amd64.deb'
+    deb: '{{ home_path }}/Downloads/Setup/debs/atom-amd64.deb'
   #command: 'snap install atom --classic'
   become: true
 
 - name: Install Firefox.
-  apt:
-    deb: '{{ playbook_dir }}/../../files/firefox_55.0.2+build1-0ubuntu0.16.04.1_amd64.deb'
+  package:
+    name: 'firefox=55.0.2+build1-0ubuntu0.16.04.1'
   become: true
 
 - name: Install golang.
