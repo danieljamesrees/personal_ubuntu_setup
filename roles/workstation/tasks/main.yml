@@ -33,6 +33,10 @@
 - import_role:
     name: docker_container_install_and_run
 
+- name: Install Docker Compose.
+  packages:
+    name: docker-compose
+
 - pause:
     seconds: 60
 
