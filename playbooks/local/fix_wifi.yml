@@ -1,0 +1,10 @@
+---
+
+# Run as follows:
+# ansible-playbook playbooks/local/fix_wifi.yml
+
+- hosts: local
+  vars:
+    home_path: '/home/dan' # Needed due to https://github.com/ansible/ansible/issues/14352.
+  tasks:
+    - import_tasks: '{{ playbook_dir }}/../../tasks/local/fix_wifi.yml'
