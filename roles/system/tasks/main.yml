@@ -9,7 +9,7 @@
   lineinfile:
     line: set -o noclobber
     path: '/etc/bash.bashrc'
-    regexp: '^set -o clobber'
+    regexp: '^set -o noclobber'
     state: present
   become: yes
 
