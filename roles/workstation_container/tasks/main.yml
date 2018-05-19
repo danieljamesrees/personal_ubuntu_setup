@@ -46,6 +46,10 @@
   #command: 'snap install atom --classic'
   become: true
 
+- name: Install atom Project Manager.
+  command:
+    name: 'apm install project-manager'
+
 - name: Install Firefox.
   package:
     name: 'firefox=55.0.2+build1-0ubuntu0.16.04.1'
