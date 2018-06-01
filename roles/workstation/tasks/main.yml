@@ -33,6 +33,19 @@
 - import_role:
     name: docker_container_install_and_run
 
+- name: Install Ubuntu extras and codecs.
+  packages:
+    name: '{{ item }}'
+  become: true
+  with_items:
+    - ubuntu-restricted-extras
+    - libavcodec-extra
+    - libdvd-pkg
+
+- name: Install curl.
+  packages:
+    name: curl
+
 - name: Install Docker Compose.
   packages:
     name: docker-compose

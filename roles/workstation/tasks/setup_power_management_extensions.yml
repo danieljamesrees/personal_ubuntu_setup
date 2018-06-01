@@ -1,0 +1,28 @@
+---
+
+- name: Install the repo for TLP and Laptop Mode Tools.
+  apt_repository:
+    repo: '{{ item }}'
+  become: true
+  with_items:
+    - ppa:linrunner/tlp
+    - ppa:ubuntuhandbook1/app
+
+- name: Update the APT repos for TLP and Laptop Mode Tools.
+  apt:
+    update_cache: true
+  become: true
+  when: not ansible_check_mode
+
+- name: Install TLP and Laptop Mode Tools.
+  package:
+    name: '{{ item }}'
+  become: true
+  with_items:
+    - tlp
+    - tlp-rdw
+    - laptop-mode-tools
+
+- name: Start TLP.
+  command: 'tlp start'
+  become: true

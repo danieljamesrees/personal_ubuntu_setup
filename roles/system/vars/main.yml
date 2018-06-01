@@ -11,6 +11,7 @@ packages_to_install:
   - ssh
   - subversion # For svn export from GitHub
   - sudo
+  - tree
   - unzip
   - vim
   - wget
